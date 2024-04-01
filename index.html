@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warning</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            display: flex;
+			flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        #proceed {
+            font-size: 24px;
+            padding: 16px 32px;
+            border: none;
+            background-color: #007bff;
+            color: #ffffff;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        #proceed:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <p style="font-size: 30px;">Warning: proceeding to the cookbook will load all 78 images.<br>If you are using mobile data, this will be quite data intensive.<br>Are you sure you want to proceed?</p>
+    <button id="proceed" onclick="location.href='cookbook.html'">Take me to the cookbook!</button>
+</body>
+</html>

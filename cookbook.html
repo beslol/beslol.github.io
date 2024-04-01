@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookbook</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            color: black;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Start from the top */
+            height: 100%;
+            overflow-y: scroll; /* Add scrollbar */
+            padding: 0; /* Remove padding */
+            margin: 0; /* Remove margin */
+        }
+        #imageList {
+            display: flex;
+            flex-direction: column; /* Display images vertically */
+            align-items: center;
+            padding: 0; /* Remove padding */
+            margin: 0; /* Remove margin */
+        }
+        #imageList img {
+            max-width: 100%; /* Ensure images don't exceed container width */
+            height: auto; /* Maintain aspect ratio */
+        }
+        #indexButton {
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+        }
+        #currentPage {
+            left: calc(10px + 20px + 10px); /* Adjust position based on index button width */
+            z-index: 9999;
+            background-color: #ffffff;
+            border: 1px solid #000000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            width: 80px; /* Adjusted width for input */
+            text-align: center;
+        }
+        #buttonflex {
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            background: rgba(0,0,0,0);
+            position: fixed;
+            top: 0;
+            width: 50%;
+            align-items: center;
+            justify-content: center;
+        }
+        #indexButton, #currentPage {
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .page-button {
+            font-size: 20px; /* Increase font size */
+            padding: 12px; /* Increase padding */
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- Image list -->
+        <div id="imageList">
+            <!-- JavaScript will populate this with image tags -->
+        </div>
+        <!-- Index button -->
+        <div id="buttonflex">
+            <button id="indexButton" onclick="scrollToIndex()">Index</button>
+            <!-- Page number input -->
+            <input type="number" id="currentPage" value=1 min="1" max="78" oninput="handleInput()">
+            <!-- Page navigation buttons -->
+            <button class="page-button" onclick="navigatePrevious()">▲</button>
+            <button class="page-button" onclick="navigateNext()">▼</button>
+        </div>
+    </div>
+
+    <script>
+        // Dynamically populate image list
+        var imageList = document.getElementById('imageList');
+        for (var i = 1; i <= 78; i++) {
+            var imageSrc = 'images/' + i + '.webp'; // Adjusted file name
+            var imageTag = document.createElement('img');
+            imageTag.src = imageSrc;
+            imageTag.alt = 'Page ' + i;
+            imageTag.id = 'image' + i;
+            imageList.appendChild(imageTag);
+        }
+
+        function scrollToIndex() {
+            // Scroll to image 63
+			document.getElementById('currentPage').value = 63;
+            document.getElementById('image63').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleInput() {
+            var pageNumber = parseInt(document.getElementById('currentPage').value);
+            var imageId = 'image' + pageNumber;
+            var imageElement = document.getElementById(imageId);
+            if (imageElement) {
+                imageElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function navigatePrevious() {
+            var currentPage = parseInt(document.getElementById('currentPage').value);
+            if (currentPage > 1) {
+                document.getElementById('currentPage').value = currentPage - 1;
+                handleInput(); // Scroll to the new page
+            }
+        }
+
+        function navigateNext() {
+            var currentPage = parseInt(document.getElementById('currentPage').value);
+            if (currentPage < 78) {
+                document.getElementById('currentPage').value = currentPage + 1;
+                handleInput(); // Scroll to the new page
+            }
+        }
+    </script>
+</body>
+</html>
